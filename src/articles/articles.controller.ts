@@ -22,6 +22,13 @@ export class ArticlesController {
     return this.articlesService.findAll();
   }
 
+  // Declared before ':id' so 'drafts' isn't treated as an article id.
+  @Get('drafts')
+  @ApiOkResponse({ type: ArticleEntity, isArray: true })
+  findDrafts() {
+    return this.articlesService.findDrafts();
+  }
+
   @Get(':id')
   @ApiOkResponse({ type: ArticleEntity })
   findOne(@Param('id') id: string) {
@@ -40,9 +47,4 @@ export class ArticlesController {
     return this.articlesService.remove(+id);
   }
 
-  @Get('drafts')
-  @ApiOkResponse({ type: ArticleEntity, isArray: true })
-  findDrafts() {
-    return this.articlesService.findDrafts();
-  }
 }
